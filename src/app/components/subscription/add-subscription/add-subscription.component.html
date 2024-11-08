@@ -1,0 +1,41 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card" style="width: 400px;">
+    <div class="card-body">
+      <form [formGroup]="subscriptionForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+        <!-- Start Date -->
+        <div class="mb-3">
+          <label for="startDate" class="form-label">Start Date</label>
+          <input type="date" id="startDate" class="form-control" formControlName="startDate" required>
+        </div>
+
+        <!-- End Date -->
+        <div class="mb-3">
+          <label for="endDate" class="form-label">End Date</label>
+          <input type="date" id="endDate" class="form-control" formControlName="endDate" required>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
+          <input type="number" id="price" class="form-control" formControlName="price" required>
+        </div>
+
+        <!-- Type of Subscription -->
+        <div class="mb-3">
+          <label for="typeSub" class="form-label">Type of Subscription</label>
+          <select id="typeSub" class="form-control" formControlName="typeSub" required>
+            <option value="" disabled>Select a type</option>
+            <option value="ANNUAL">ANNUAL</option>
+            <option value="MONTHLY">MONTHLY</option>
+            <option value="SEMESTRIEL">SEMESTRIEL</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="subscriptionForm.invalid">Submit</button>
+
+      </form>
+    </div>
+  </div>
+</div>
