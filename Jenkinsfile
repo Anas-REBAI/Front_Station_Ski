@@ -61,18 +61,18 @@ pipeline {
             }
         }
 
-        // stage('Deploy Frontend with K8S Manifest') {
-        //     agent { label 'agent01' }
-        //     steps {
-        //         script {
-        //         // Accessing the deployment_front.yaml and applying it
-        //         echo "Deploying frontend application using deployment_front.yaml."
-        //         sh '''
-        //             kubectl apply -f /home/vagrant/jenkins-agent2/workspace/5Arctic-G1-SKI-Backend/manifest_files/deploy_frontend.yml
-        //         '''
-        //         }
-        //     }
-        // }
+        stage('Deploy Frontend with K8S Manifest') {
+            agent { label 'agent01' }
+            steps {
+                script {
+                // Accessing the deployment_front.yaml and applying it
+                echo "Deploying frontend application using deployment_front.yaml."
+                sh '''
+                    kubectl apply -f deploy.yml
+                '''
+                }
+            }
+        }
 
     }
 

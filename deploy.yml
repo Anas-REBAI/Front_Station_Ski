@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: station-ski-app-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stationski-app-front
+  template:
+    metadata:
+      labels:
+        app: stationski-app-front
+    spec:
+      containers:
+        - name: frontend
+          image: rab3oon/front-stationski:latest
+          ports:
+            - containerPort: 80
+              name: frontend-port
+
+---
+# Service for the frontend
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: stationski-app-front  # Updated to match the app label in the deployment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
