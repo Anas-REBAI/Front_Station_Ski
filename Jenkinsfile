@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('DockerHubCredentials')
-        DOCKER_IMAGE = 'Front-StationSki'  
+        DOCKER_IMAGE = 'sront-stationski'  
         IMAGE_TAG = 'latest' 
     }
 
