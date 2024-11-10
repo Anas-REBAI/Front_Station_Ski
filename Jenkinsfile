@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Frontend with K8S Manifest') {
+        stage('Deploy Frontend') {
             agent { label 'agent01' }
             steps {
                 script {
