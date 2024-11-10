@@ -6,8 +6,8 @@ import { AllSubscriptionComponent } from './components/subscription/all-subscrip
 const routes: Routes = [
   { path: 'add-subscription', component: AddSubscriptionComponent },
   { path: 'all-subscription', component: AllSubscriptionComponent },
-  { path: '', redirectTo: '/all-subscription', pathMatch: 'full' },  // Redirect the default path
-  { path: '**', redirectTo: '/all-subscription' }  // Wildcard route to handle undefined routes
+  { path: '', redirectTo: 'add-subscription', pathMatch: 'full' },  // Redirect the default path
+  { path: '**', redirectTo: 'all-subscription' }  // Wildcard route to handle undefined routes
 ];
 
 @NgModule({

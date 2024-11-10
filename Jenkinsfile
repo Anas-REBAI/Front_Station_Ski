@@ -5,7 +5,8 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('DockerHubCredentials')
         DOCKER_IMAGE = 'front-stationski'  
-        IMAGE_TAG = 'latest' 
+        // Utilisation du hash du commit Git comme tag d'image unique
+        IMAGE_TAG = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
     }
 
     stages {
@@ -68,6 +69,7 @@ pipeline {
                 // Accessing the deployment_front.yaml and applying it
                 echo "Deploying frontend application using deployment_front.yaml."
                 sh '''
+                    kubectl set image deployment/station-ski-app-front frontend=$DOCKER_USERNAME/$DOCKER_IMAGE:$IMAGE_TAG
                     kubectl apply -f deploy.yml
                 '''
                 }

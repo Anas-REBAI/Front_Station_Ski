@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: rab3oon/front-stationski:latest
+          image: $DOCKER_USERNAME/front-stationski:$IMAGE_TAG
           ports:
             - containerPort: 80
               name: frontend-port
