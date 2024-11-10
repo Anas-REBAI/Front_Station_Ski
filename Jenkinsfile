@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'agent01'}
+    agent any
   
 
     environment {
@@ -10,7 +10,7 @@ pipeline {
 
     stages {
 
-        stage('Check FrontEnd') {
+        stage('Checkout GIT') {
             agent { label 'agent01' }
             steps {
                 script {
@@ -31,7 +31,7 @@ pipeline {
             }
         }
         
-        stage('Docker Build FrontEnd') {
+        stage('Docker Build FrontEnd Image') {
             agent { label 'agent01' }
             steps {
                 script {
@@ -77,19 +77,19 @@ pipeline {
     }
 
     post {
-        success {
-            script {
-                // Send a success message to Slack with image name and tag test
-                slackSend(channel: '#jenkins-messg', 
-                          message: "Le build de pipeline Frontend a réussi : ${env.JOB_NAME} #${env.BUILD_NUMBER} ! Image pushed: ${DOCKER_IMAGE}:${IMAGE_TAG} successfully.")
-            }
-        }
-        failure {
-            script {
-                // Send a failure message to Slack
-                slackSend(channel: '#jenkins-messg', 
-                          message: "Le build de pipeline Frontend a échoué : ${env.JOB_NAME} #${env.BUILD_NUMBER}.")
-            }
-        }
+        // success {
+        //     script {
+        //         // Send a success message to Slack with image name and tag test
+        //         slackSend(channel: '#jenkins-messg', 
+        //                   message: "Le build de pipeline Frontend a réussi : ${env.JOB_NAME} #${env.BUILD_NUMBER} ! Image pushed: ${DOCKER_IMAGE}:${IMAGE_TAG} successfully.")
+        //     }
+        // }
+        // failure {
+        //     script {
+        //         // Send a failure message to Slack
+        //         slackSend(channel: '#jenkins-messg', 
+        //                   message: "Le build de pipeline Frontend a échoué : ${env.JOB_NAME} #${env.BUILD_NUMBER}.")
+        //     }
+        // }
     }
 }

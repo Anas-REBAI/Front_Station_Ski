@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/internal/Observable';
   providedIn: 'root'
 })
 export class SubcriptionService {
+
+  //apiUrl: string ="http://localhost:9005/api/subscription";
   apiUrl: string ="http://20.248.114.155:9005/api/subscription";
 
   constructor(private http: HttpClient) { }
@@ -17,12 +19,20 @@ export class SubcriptionService {
     return this.http.post<Subscription>(`${this.apiUrl}/add`, subscription, { headers });
   }
 
-
-
-
   // Method to retrieve subscriptions by date range
   getSubscriptionsByDates(startDate: string, endDate: string): Observable<Subscription[]> {
     const url = `${this.apiUrl}/all/${startDate}/${endDate}`;
     return this.http.get<Subscription[]>(url);
   }
+
+  // Method to update subscription
+  updateSubscription(subscription: Subscription): Observable<Subscription> {
+    return this.http.put<Subscription>(`${this.apiUrl}/update`, subscription);
+  }
+
+  // Delete Subscription
+  deleteSubscription(subscriptionId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/removeSubscription/${subscriptionId}`);
+  }
+
 }

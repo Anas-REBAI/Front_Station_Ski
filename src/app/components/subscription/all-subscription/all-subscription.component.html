@@ -1,38 +1,48 @@
-<a routerLink="/add-subscription" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Add Subscription</a>
-
-<div class="card" style="width: 100%;">
-  <div class="card-body">
-    <h5 class="card-title">Subscription List</h5>
-
-    <!-- Display subscriptions in a card format -->
-    <div *ngIf="subscriptions.length > 0">
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Price</th>
-            <th>Type of Subscription</th>
-            <th>Actions</th> <!-- New Actions Column -->
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let subscription of subscriptions">
-            <td>{{ subscription.startDate }}</td>
-            <td>{{ subscription.endDate }}</td>
-            <td>{{ subscription.price }}</td>
-            <td>{{ subscription.typeSub }}</td>
-            <td>
-              <button class="btn btn-warning btn-sm" (click)="onEdit(subscription.numSub)">Update</button>
-              <button class="btn btn-danger btn-sm" (click)="onDelete(subscription.numSub)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div *ngIf="subscriptions.length === 0">
-      <p class="text-muted">No subscriptions found for the selected dates.</p>
-    </div>
-  </div>
+<div *ngIf="subscriptions.length > 0" style="margin-top: 80px;">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Price</th>
+        <th>Type of Subscription</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subscription of subscriptions">
+        <!-- Toggle between display and input based on edit mode -->
+        <td>
+          <span *ngIf="editSubscriptionId !== subscription.numSub">{{ subscription.startDate }}</span>
+          <input *ngIf="editSubscriptionId === subscription.numSub"
+                 [(ngModel)]="subscription.startDate" type="date" class="form-control">
+        </td>
+        <td>
+          <span *ngIf="editSubscriptionId !== subscription.numSub">{{ subscription.endDate }}</span>
+          <input *ngIf="editSubscriptionId === subscription.numSub"
+                 [(ngModel)]="subscription.endDate" type="date" class="form-control">
+        </td>
+        <td>
+          <span *ngIf="editSubscriptionId !== subscription.numSub">{{ subscription.price }}</span>
+          <input *ngIf="editSubscriptionId === subscription.numSub"
+                 [(ngModel)]="subscription.price" type="number" class="form-control">
+        </td>
+        <td>
+          <span *ngIf="editSubscriptionId !== subscription.numSub">{{ subscription.typeSub }}</span>
+          <input *ngIf="editSubscriptionId === subscription.numSub"
+                 [(ngModel)]="subscription.typeSub" type="text" class="form-control">
+        </td>
+        <td>
+          <!-- Show Update button if not in edit mode; Save/Cancel buttons if in edit mode -->
+          <button *ngIf="editSubscriptionId !== subscription.numSub" class="btn btn-warning btn-sm"
+                  (click)="onEdit(subscription.numSub)">Update</button>
+          <button *ngIf="editSubscriptionId === subscription.numSub" class="btn btn-primary btn-sm"
+                  (click)="onSave(subscription)">Save</button>
+          <button *ngIf="editSubscriptionId === subscription.numSub" class="btn btn-secondary btn-sm"
+                  (click)="onCancel()">Cancel</button>
+          <button *ngIf="subscription.numSub" class="btn btn-danger btn-sm" (click)="onDelete(subscription.numSub!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
