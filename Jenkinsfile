@@ -77,19 +77,19 @@ pipeline {
     }
 
     post {
-        // success {
-        //     script {
-        //         // Send a success message to Slack with image name and tag test
-        //         slackSend(channel: '#jenkins-messg', 
-        //                   message: "Le build de pipeline Frontend a réussi : ${env.JOB_NAME} #${env.BUILD_NUMBER} ! Image pushed: ${DOCKER_IMAGE}:${IMAGE_TAG} successfully.")
-        //     }
-        // }
-        // failure {
-        //     script {
-        //         // Send a failure message to Slack
-        //         slackSend(channel: '#jenkins-messg', 
-        //                   message: "Le build de pipeline Frontend a échoué : ${env.JOB_NAME} #${env.BUILD_NUMBER}.")
-        //     }
-        // }
+        success {
+            echo 'Pipeline succeeded!'
+            // Actions à exécuter en cas de succès
+        }
+
+        failure {
+            echo 'Pipeline failed!'
+            // Actions à exécuter en cas d'échec
+        }
+
+        always {
+            echo 'Pipeline has finished execution'
+            // Actions à exécuter, qu'il y ait succès ou échec
+        }
     }
 }
