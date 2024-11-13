@@ -5,7 +5,6 @@ pipeline {
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('DockerHubCredentials')
         DOCKER_IMAGE = 'front-stationski'  
-        // Utilisation du hash du commit Git comme tag d'image unique
         IMAGE_TAG = 'v3'
     }
 
@@ -66,8 +65,7 @@ pipeline {
             agent { label 'agent01' }
             steps {
                 script {
-                // Accessing the deployment_front.yaml and applying it
-                echo "Deploying frontend application using deployment_front.yaml."
+                echo "Deploying frontend application using deploy.yaml."
                 sh '''
                     kubectl apply -f deploy.yml
                 '''
@@ -79,18 +77,23 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline succeeded!'
-            // Actions à exécuter en cas de succès
+            script {
+                slackSend(
+                    channel: '#jenkins',
+                    message: "Le build de pipeline Frontend a réussi : ${env.JOB_NAME} #${env.BUILD_NUMBER} ! Image pushed: ${DOCKER_IMAGE}:${IMAGE_TAG} successfully"
+                )
+            }
         }
-
         failure {
-            echo 'Pipeline failed!'
-            // Actions à exécuter en cas d'échec
+            script {
+                slackSend(
+                    channel: '#jenkins',
+                    message: "Le build de pipeline Frontend a échoué : ${env.JOB_NAME} #${env.BUILD_NUMBER}."
+                )
+            }
         }
-
         always {
             echo 'Pipeline has finished execution'
-            // Actions à exécuter, qu'il y ait succès ou échec
         }
     }
 }
