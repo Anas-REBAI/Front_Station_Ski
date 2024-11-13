@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: rab3oon/front-stationski:v3
+          image: rab3oon/front-stationskii:latest
           ports:
             - containerPort: 80
               name: frontend-port

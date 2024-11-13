@@ -4,8 +4,8 @@ pipeline {
 
     environment {
         DOCKER_HUB_CREDENTIALS = credentials('DockerHubCredentials')
-        DOCKER_IMAGE = 'front-stationski'  
-        IMAGE_TAG = 'v3'
+        DOCKER_IMAGE = 'front-stationskii'  
+        IMAGE_TAG = 'latest'
     }
 
     stages {
